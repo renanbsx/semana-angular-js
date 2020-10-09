@@ -1,30 +1,53 @@
 (function () {
     "use strict";
 
-    // PRECISAMOS SELECIONAR O ELEMENTO PARA PODER DIZER ONDE VAI FICAR A APLICAÇÃO
-    var div1 = document.getElementById('app1');
-    var div2 = document.getElementById('app2');
+    //MODULO
+    angular.module('listaTarefasApp', []);
 
-    // APLICAÇÃO 1
-    angular
-        .module('app1', [])
-        .controller('controlador1', function ($scope) {
-            $scope.nome = 'Lucas';
-        });
+    //CONTROLLER
+    angular.module('listaTarefasApp')
+        .controller("listaTarefasController", listaTarefasController);
 
+    listaTarefasController.$inject = ['$scope'];
 
-    // APLICAÇÃO 2
-    angular
-        .module('app2', [])
-        .controller('controlador2', function ($scope) {
-            $scope.contador = 10;
-        });
+    function listaTarefasController ($scope) {
+        var vm = this;
 
-    // EXECUTA MANUALMENTE CADA APLICAÇÃO EM SEU ELEMENTO DO HTML
-    // POR ISSO NÃO É COLOCADO O NG-APP, 
-    // PORQUE NO BOOTSTRAP, É PASSADO O ELEMENTO NO QUAL VAI RENDERIZAR A APLICAÇÃO
-    // PRIMEIRO PARAMETRO O ELEMENTO E SEGUNDO O MODULO DA APLICAÇÃO
+        vm.tarefas = [
+            { text: 'Estudar AngularJS', feito: true },
+            { text: 'Fazer uma aplicação em AngularJS', feito: false }
+        ];
 
-    angular.bootstrap(div1, ['app1']);
-    angular.bootstrap(div2, ['app2']);
+        vm.restam = restam;
+        vm.addTarefa = addTarefa;
+        vm.arquivar = arquivar;
+
+        function restam() {
+            var count = 0;
+            angular.forEach(vm.tarefas, function (trf) {
+                if (!trf.feito) count++;
+            });
+            return count;
+        }
+
+        function addTarefa() {
+            vm.tarefas.push({ text: vm.tarefaText, feito: false });
+            vm.tarefaText = '';
+        }
+
+        function arquivar() {
+            // var oldTarefas = vm.tarefas;
+            // vm.tarefas = [];
+
+            // angular.forEach(oldTarefas, function (trf) {
+            //     if (!trf.feito)
+            //         vm.tarefas.push(trf);
+            // });
+
+            vm.tarefas = vm.tarefas.filter(function(trf) { return !trf.feito })
+            
+        }
+
+    }
+
 })();
