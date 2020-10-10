@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="lista-compras.css">
     <script src="http://localhost:35729/livereload.js"></script>
 
-    <script src="/dist/vendor/angular/angular.js"></script>
-    <script src="/dist/vendor/angular-route/angular-route.js"></script>
+    <script src="vendor/angular/angular.js"></script>
+    <script src="vendor/angular-route/angular-route.js"></script>
 
     <script src="lista-compras.module.js"></script>
     <script src="lista-compras.routes.js"></script>
@@ -46,6 +46,9 @@
             </button>
         </div>
     </div>
+
+    {{vm.teste}}
+    <button ng-click="vm.teste = !vm.teste">BTN</button>
 
     <ng-view></ng-view>
 
